@@ -18,7 +18,7 @@
 6. Перегрузку:
 · операции ++ (--): одновременно увеличивает(уменьшает) значение полей a, b и c на 1;
 · констант true и false: обращение к экземпляру класса дает значение true, если треугольник с заданными длинами сторон существует, иначе false;
-· операции*: одновременно домножает поля a, b и c на скаляр.
+· операции *: одновременно домножает поля a, b и c на скаляр.
 
 Продемонстрировать работу класса.
 */
@@ -28,8 +28,8 @@ namespace ClassesAndObjectsTask2
     class Triangle
     {
         // Поля
-        double a, b, c;
-        double perimeter;
+        int a, b, c;
+        int perimeter;
 
         // Конструктор, позволяющий создать экземпляр класса с заданными длинами сторон.
         public Triangle()
@@ -39,7 +39,7 @@ namespace ClassesAndObjectsTask2
             c = 0;
         }
 
-        public Triangle(double a, double b, double c)
+        public Triangle(int a, int b, int c)
         {
             this.a = a;
             this.b = b;
@@ -59,31 +59,76 @@ namespace ClassesAndObjectsTask2
         // Метод для расчёта площадь треугольника
         public string CalcArea()
         {
-            double semiperimeter = perimeter / 2;
+            int semiperimeter = perimeter / 2;
             double area = Math.Sqrt(semiperimeter * (semiperimeter - a) * (semiperimeter - b) * (semiperimeter - c));
             return $"Площадь треугольника S = {area:f2} см";
         }
 
         // Свойство, позволяющее получить-установить длины сторон треугольника (доступное для чтения и записи)
-        public double A
+        public int A
         {
             get => a;
             set => a = value;
         }
 
-        public double B
+        public int B
         {
             get => b;
             set => b = value;
         }
 
-        public double C
+        public int C
         {
             get => c;
             set => c = value;
         }
 
         // Свойство, позволяющее установить, существует ли треугольник с данными длинами сторон (доступное только для чтения)
+        public bool IsTriangle
+        {
+            get
+            {
+                if (a + b > c && a + c > b && b + c > a)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
 
+        // Индексатор, позволяющий по индексу 0 обращаться к полю a, по индексу 1 – к полю b, по индексу 2 – к полю c, 
+        // при других значениях индекса выдается сообщение об ошибке.
+        public string this[double i]
+        {
+            get
+            {
+                switch (i)
+                {
+                    case 0:
+                        return $"Индекс {i} соответствует стороне A, равной {a} см";
+                    case 1:
+                        return $"Индекс {i} соответствует стороне B, равной {b} см";
+                    case 2:
+                        return $"Индекс {i} соответствует стороне C, равной {c} см";
+                    default:
+                        return $"Индекс {i} является недействительным";
+                }
+            }
+        }
+
+        // Перегрузка операции ++: одновременно увеличивает значение полей a, b и c на 1;
+        public static Triangle operator ++(Triangle side) => new Triangle(++side.a, ++side.b, ++side.c);
+
+        // Перегрузка операции --: одновременно уменьшает значение полей a, b и c на 1;
+        public static Triangle operator --(Triangle side) => new Triangle(--side.a, --side.b, --side.c);
+
+        // Перегрузка констант true и false
+        // обращение к экземпляру класса дает значение true, если треугольник с заданными длинами сторон существует, иначе false;
+        public static bool operator true(Triangle side) => side.IsTriangle;
+
+        public static bool operator false(Triangle side) => side.IsTriangle;
+
+        // Перегрузка операции *: одновременно домножает поля a, b и c на скаляр.
+        public static Triangle operator *(Triangle side, int scalar) => new Triangle(side.a *= scalar, side.b *= scalar, side.c *= scalar);
     }
 }
