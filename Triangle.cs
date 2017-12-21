@@ -29,58 +29,68 @@ namespace ClassesAndObjectsTask2
     {
         // Поля
         int a, b, c;
-        int perimeter;
 
         // Конструктор, позволяющий создать экземпляр класса с заданными длинами сторон.
-        public Triangle()
-        {
-            a = 0;
-            b = 0;
-            c = 0;
-        }
-
         public Triangle(int a, int b, int c)
         {
-            this.a = a;
-            this.b = b;
-            this.c = c;
+            A = a;
+            B = b;
+            C = c;
         }
 
         // Метод для вывода длины сторон треугольника на экран
         public override string ToString() => $"Длина сторон треугольника: A = {a} см, B = {b} см и C = {c} см";
 
         // Метод для расчёта периметра треугольника
-        public string CalcPerimeter()
+        public int CalcPerimeter()
         {
-            perimeter = a + b + c;
-            return $"Периметр треугольника: P = {perimeter} см";
+            int perimeter = a + b + c;
+            return perimeter;
         }
 
         // Метод для расчёта площадь треугольника
-        public string CalcArea()
+        public double CalcArea()
         {
-            int semiperimeter = perimeter / 2;
+            double semiperimeter = (a + b + c) / (double)2;
             double area = Math.Sqrt(semiperimeter * (semiperimeter - a) * (semiperimeter - b) * (semiperimeter - c));
-            return $"Площадь треугольника S = {area:f2} см";
+            return area;
         }
 
         // Свойство, позволяющее получить-установить длины сторон треугольника (доступное для чтения и записи)
         public int A
         {
-            get => a;
-            set => a = value;
+            get { return a; }
+            set
+            {
+                if (value < 0)
+                    a = 0;
+                else
+                    a = value;
+            }
         }
 
         public int B
         {
-            get => b;
-            set => b = value;
+            get { return b; }
+            set
+            {
+                if (value < 0)
+                    b = 0;
+                else
+                    b = value;
+            }
         }
 
         public int C
         {
-            get => c;
-            set => c = value;
+            get { return c; }
+            set
+            {
+                if (value < 0)
+                    c = 0;
+                else
+                    c = value;
+            }
         }
 
         // Свойство, позволяющее установить, существует ли треугольник с данными длинами сторон (доступное только для чтения)

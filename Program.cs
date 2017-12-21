@@ -11,8 +11,8 @@ namespace ClassesAndObjectsTask2
             Console.WriteLine("Параметры треугольника");
             Console.ResetColor();
             Console.WriteLine(firstTriangle);
-            Console.WriteLine(firstTriangle.CalcPerimeter());
-            Console.WriteLine(firstTriangle.CalcArea());
+            Console.WriteLine($"Периметр треугольника: P = {firstTriangle.CalcPerimeter()} см");
+            Console.WriteLine($"Площадь треугольника S = {firstTriangle.CalcArea():f2} см");
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("\nДемонстрация работы индексатора");
